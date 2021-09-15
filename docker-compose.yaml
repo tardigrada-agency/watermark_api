@@ -1,0 +1,13 @@
+version: '3'
+services:
+  watermark:
+    container_name: watermark
+    build:
+      .
+    ports:
+    - 8083:80
+    volumes:
+      - ./temp:/app/temp
+      - ./logo:/app/logo
+      - ./modes.py:/app/modes.py
+    restart: always
