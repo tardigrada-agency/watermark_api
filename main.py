@@ -31,7 +31,7 @@ async def watermark_on_photo(size: int, color: str, logo_type: str, mode: str, f
             return {'error': True, 'status': f'У меня нету логотипа для color={color} & logo_type={logo_type} :('}
         if logo_type not in modes.modes.keys():
             return {'error': True, 'status': f'У меня нету настроек для logo_type={logo_type} :('}
-        if mode not in modes.modes[logo_type].keys():
+        if mode not in modes.modes[logo_type]['mode'].keys():
             return {'error': True, 'status': f'У меня нету настройки для mode={mode} & logo_type={logo_type} :('}
 
         remove_photo(file.filename)
@@ -81,7 +81,7 @@ async def watermark_on_video(size: int, color: str, logo_type: str, mode: str, f
             out_file.write(content)  # async write
         img_size = get_size_size(f'temp/{file.filename}')
         logo_size = get_size_size(f'logo/{color}_{logo_type}.png')
-        mode = modes.modes[logo_type][mode]
+        mode = modes.modes[logo_type]['mode'][mode]
 
         sp.call([
             'ffmpeg', '-i', f'temp/{file.filename}', '-i', f'logo/{color}_{logo_type}.png',
