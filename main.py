@@ -48,12 +48,12 @@ async def watermark_on_photo(size: int, color: str, logo_type: str, mode: str, f
             '-filter_complex', f'[1]format=yuva422p10,'
                                f'colorchannelmixer=aa={mode["opacity"](logo_size, img_size, size)},'
             # Меняем размер логотипа
-            f'scale={mode["scale"](logo_size, img_size, size)}:-1[in2];'
+            f'scale={round(mode["scale"](logo_size, img_size, size))}:-1[in2];'
             # Позиционируем логотип
             f'[0][in2]overlay='
             # рассчитываем отступы относительно разрешения фото и логотипа
-            f'{mode["x"](logo_size, img_size, size)}:'
-            f'{mode["y"](logo_size, img_size, size)}',
+            f'{round(mode["x"](logo_size, img_size, size))}:'
+            f'{round(mode["y"](logo_size, img_size, size))}',
             # Указываем выходной файл
             '-q:v', '1',  f'temp/{get_filename(file.filename)}_logo.jpg'])
 
@@ -89,12 +89,12 @@ async def watermark_on_video(size: int, color: str, logo_type: str, mode: str, f
             '-filter_complex', f'[1]format=yuva422p10,'
                                f'colorchannelmixer=aa={mode["opacity"](logo_size, img_size, size)},'
             # Меняем размер логотипа
-                               f'scale={mode["scale"](logo_size, img_size, size)}:-1[in2];'
+                               f'scale={round(mode["scale"](logo_size, img_size, size))}:-1[in2];'
             # Позиционируем логотип
                                f'[0][in2]overlay='
             # рассчитываем отступы относительно разрешения фото и логотипа
-                               f'{mode["x"](logo_size, img_size, size)}:'
-                               f'{mode["y"](logo_size, img_size, size)}',
+                               f'{round(mode["x"](logo_size, img_size, size))}:'
+                               f'{round(mode["y"](logo_size, img_size, size))}',
             # Указываем выходной файл
             '-q:v', '1', f'temp/{get_filename(file.filename)}_logo.mp4'])
 
