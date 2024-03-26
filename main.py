@@ -45,7 +45,7 @@ async def watermark_on_photo(size: int, color: str, logo_type: str, mode: str, f
         sp.call([
             'ffmpeg', '-i', f'temp/{file.filename}', '-i', f'logo/{color}_{logo_type}.png',
             # Меняем прозрачность и размер логотипа
-            '-filter_complex', f'[1]format=yuva422p10,'
+            '-filter_complex', f'[1]format=rgba,'
                                f'colorchannelmixer=aa={mode["opacity"](logo_size, img_size, size)},'
             # Меняем размер логотипа
             f'scale={round(mode["scale"](logo_size, img_size, size))}:-1[in2];'
@@ -86,7 +86,7 @@ async def watermark_on_video(size: int, color: str, logo_type: str, mode: str, f
         sp.call([
             'ffmpeg', '-i', f'temp/{file.filename}', '-i', f'logo/{color}_{logo_type}.png',
             # Меняем прозрачность и размер логотипа
-            '-filter_complex', f'[1]format=yuva422p10,'
+            '-filter_complex', f'[1]format=rgba,'
                                f'colorchannelmixer=aa={mode["opacity"](logo_size, img_size, size)},'
             # Меняем размер логотипа
                                f'scale={round(mode["scale"](logo_size, img_size, size))}:-1[in2];'
